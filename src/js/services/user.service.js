@@ -13,6 +13,20 @@ export default class User {
     this.current = null;
   }
 
+  // Update the current user's name, email, password, etc
+  update(fields) {
+    return this._$http({
+      url: this._AppConstants.api + '/user',
+      method: 'PUT',
+      data: { user: fields }
+    }).then(
+      (res) => {
+        this.current = res.data.user;
+        return res.data.user;
+      }
+    );
+  }
+
   // Try to authenticate by registering or logging in
   attemptAuth(type, credentials) {
     let route = (type === 'login') ? '/login' : '';
