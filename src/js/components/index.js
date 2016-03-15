@@ -25,5 +25,8 @@ componentsModule.component('articleList', ArticleList);
 import ListPagination from './article-helpers/list-pagination.component';
 componentsModule.component('listPagination', ListPagination);
 
+import FollowBtn from './buttons/follow-btn.component';
+componentsModule.component('followBtn', FollowBtn);
+
 
 export default componentsModule;
