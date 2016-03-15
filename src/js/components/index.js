@@ -10,5 +10,11 @@ componentsModule.component('listErrors', ListErrors);
 import ShowAuthed from './show-authed.directive';
 componentsModule.directive('showAuthed', ShowAuthed);
 
+import ArticleMeta from './article-helpers/article-meta.component';
+componentsModule.component('articleMeta', ArticleMeta);
+
+import FavoriteBtn from './buttons/favorite-btn.component';
+componentsModule.component('favoriteBtn', FavoriteBtn);
+
 
 export default componentsModule;

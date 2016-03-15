@@ -4,30 +4,9 @@
   <div class="banner">
     <div class="container">
 
-      <h1>Example article title</h1>
+      <h1 ng-bind="::$ctrl.article.title"></h1>
 
-      <div class="article-meta">
-        <!-- Show author info + favorite & follow buttons -->
-        <div class="article-meta">
-          <a href=""><img /></a>
-          <div class="info">
-            <a href="" class="author">Brad Green</a>
-            <span class="date">January 20th</span>
-          </div>
-
-          <button class="btn btn-sm btn-outline-secondary">
-            <i class="ion-plus-round"></i>
-            &nbsp;
-            Follow Brad Green
-          </button>
-          &nbsp;
-          <button class="btn btn-sm btn-outline-primary">
-            <i class="ion-heart"></i>
-            &nbsp;
-            Favorite Article <span class="counter">(29)</span>
-          </button>
-        </div>
-      </div>
+      <article-actions article="$ctrl.article"></article-actions>
 
     </div>
   </div>
@@ -42,15 +21,13 @@
       <div class="col-xs-12">
 
         <div>
-          <p>This is the content of our article.</p>
+          <div ng-bind-html="::$ctrl.article.body"></div>
         </div>
 
         <ul class="tag-list">
-          <li class="tag-default tag-pill tag-outline">
-            Tag One
-          </li>
-          <li class="tag-default tag-pill tag-outline">
-            Tag Two
+          <li class="tag-default tag-pill tag-outline"
+            ng-repeat="tag in ::$ctrl.article.tagList">
+            {{ tag }}
           </li>
         </ul>
 

@@ -12,5 +12,8 @@ articleModule.config(ArticleConfig);
 import ArticleCtrl from './article.controller';
 articleModule.controller('ArticleCtrl', ArticleCtrl);
 
+import ArticleActions from './article-actions.component';
+articleModule.component('articleActions', ArticleActions);
+
 
 export default articleModule;
