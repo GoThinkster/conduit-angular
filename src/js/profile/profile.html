@@ -9,7 +9,6 @@
           <img ng-src="{{::$ctrl.profile.image}}" class="user-img" />
           <h4 ng-bind="::$ctrl.profile.username"></h4>
           <p ng-bind="::$ctrl.profile.bio"></p>
-          <follow-btn user="$ctrl.profile" ng-hide="$ctrl.isUser"></follow-btn>
 
           <a ui-sref="app.settings"
             class="btn btn-sm btn-outline-secondary action-btn"
