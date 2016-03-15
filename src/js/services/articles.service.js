@@ -11,7 +11,6 @@ export default class Articles {
 
   // Creates or updates an article
   save(article) {
-
     let request = {};
 
     // If there's a slug, perform an update via PUT w/ article's slug
@@ -33,7 +32,6 @@ export default class Articles {
     request.data = { article: article };
 
     return this._$http(request).then((res) => res.data.article);
-
   }
 
   // Retrieve a single article
@@ -81,7 +79,24 @@ export default class Articles {
     });
   }
 
+  /*
+    Config object spec:
 
+    {
+      type: String [REQUIRED] - Accepts "all", "feed"
+      filters: Object - Key value of URL params (i.e. {author:"ericsimons"} )
+    }
+  */
+  query(config) {
+
+    // Create the $http object for this request
+    let request = {
+      url: this._AppConstants.api + '/articles' + ((config.type === 'feed') ? '/feed' : ''),
+      method: 'GET',
+      params: config.filters ? config.filters : null
+    };
+    return this._$http(request).then((res) => res.data);
+  }
 
 
 }
