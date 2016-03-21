@@ -7,8 +7,10 @@ var ngAnnotate    = require('browserify-ngannotate');
 var browserSync   = require('browser-sync').create();
 var sass          = require('gulp-sass');
 var rename        = require('gulp-rename');
-var minifyCSS     = require('gulp-minify-css');
 var templateCache = require('gulp-angular-templatecache');
+var uglify        = require('gulp-uglify');
+var cleanCSS      = require('gulp-clean-css');
+var merge         = require('merge-stream');
 
 // Where our files are located
 var sassFiles = "src/sass/main.scss";
@@ -45,7 +47,6 @@ gulp.task('sass', function() {
   return gulp.src(sassFiles)
       .pipe(sass())
       .on('error', interceptErrors)
-      .pipe(minifyCSS())
       .pipe(gulp.dest("./build/"));
 });
 
@@ -63,6 +64,23 @@ gulp.task('views', function() {
       .on('error', interceptErrors)
       .pipe(rename("app.templates.js"))
       .pipe(gulp.dest('./src/js/config/'));
+});
+
+// This task is used for building production ready
+// minified JS/CSS files into the dist/ folder
+gulp.task('build', ['sass', 'html', 'views'], function() {
+  var html = gulp.src("build/index.html")
+                 .pipe(gulp.dest('./dist/'));
+
+  var js = gulp.src("build/main.js")
+               .pipe(uglify())
+               .pipe(gulp.dest('./dist/'));
+
+  var css = gulp.src("build/main.css")
+                .pipe(cleanCSS())
+                .pipe(gulp.dest('./dist/'));
+
+  return merge(html,js,css);
 });
 
 gulp.task('default', ['sass', 'html', 'views'], function() {
