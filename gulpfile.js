@@ -31,7 +31,7 @@ var interceptErrors = function(error) {
 };
 
 
-gulp.task('browserify', function() {
+gulp.task('browserify', ['views'], function() {
   return browserify('./src/js/app.js')
       .transform(babelify, {presets: ["es2015"]})
       .transform(ngAnnotate)
@@ -68,7 +68,7 @@ gulp.task('views', function() {
 
 // This task is used for building production ready
 // minified JS/CSS files into the dist/ folder
-gulp.task('build', ['sass', 'html', 'views', 'browserify'], function() {
+gulp.task('build', ['sass', 'html', 'browserify'], function() {
   var html = gulp.src("build/index.html")
                  .pipe(gulp.dest('./dist/'));
 
@@ -83,9 +83,7 @@ gulp.task('build', ['sass', 'html', 'views', 'browserify'], function() {
   return merge(html,js,css);
 });
 
-gulp.task('default', ['sass', 'html', 'views'], function() {
-
-  gulp.start(['browserify']);
+gulp.task('default', ['sass', 'html', 'browserify'], function() {
 
   browserSync.init(['./build/**/**.**'], {
     server: "./build",
